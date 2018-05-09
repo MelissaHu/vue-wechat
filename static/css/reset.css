@@ -1,0 +1,51 @@
+@font-face {
+    font-family: 'custom-iconfont';
+    src: url('http://at.alicdn.com/t/font_650748_ii9jg1oi41epcik9.ttf') format('truetype');
+}
+
+.van-icon {
+    font-family: 'vant-icon', 'custom-iconfont' !important;
+}
+
+.van-icon-wcAdd:before {
+    content: '\e608';
+    font-size: 24px;
+    vertical-align: baseline;
+}
+
+.van-icon-wc-chat:before {
+    content: '\e6e6'
+}
+
+.van-icon-wc-contact:before {
+    content: '\e600';
+    font-size: 22px;
+}
+
+.van-icon-find:before {
+    content: '\e65b';
+    font-size: 22px;
+}
+
+.van-icon-me:before {
+    content: '\e60d';
+    font-size: 20px;
+}
+
+.van-nav-bar {
+    background: linear-gradient(180deg, #303036, #3c3b40);
+}
+
+.van-nav-bar__title {
+    color: #fff !important;
+    font-weight: 600;
+}
+
+.van-nav-bar .van-icon {
+    color: #fff !important;
+}
+
+.van-nav-bar__left,
+.van-nav-bar__right {
+    bottom: 5px !important;
+}
