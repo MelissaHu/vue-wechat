@@ -1,128 +1,55 @@
 <template>
-  <div
-    v-clickoutside:touchstart="onClick"
-    :class="b()"
-    @click="onClick('cell')"
-    @touchstart="startDrag"
-    @touchmove="onDrag"
-    @touchend="endDrag"
-    @touchcancel="endDrag"
-  >
-    <div
-      :class="b('wrapper')"
-      :style="wrapperStyle"
-      @transitionend="swipe = false"
-    >
-      <div v-if="leftWidth" :class="b('left')" @click.stop="onClick('left')">
-        <slot name="left" />
-      </div>
-      <slot />
-      <div v-if="rightWidth" :class="b('right')" @click.stop="onClick('right')">
-        <slot name="right" />
-      </div>
+    <div class="wc-switch-cell">
+     
+      <ul>
+        <li @click="show = !show">
+          <transition name="slide-fade">
+          <div class="main-context">
+           <div class="fl cell-img"><img src="http://tb1.bdstatic.com/tb/cms/ngmis/file_1453447545023.jpg" alt=""></div>
+           <div class="cell-text">
+              <div class="cell-name">上海前端交流群1 <span class="time fr">下午4:30</span></div>
+              <p>扣费标准 <span class="fr mute"><i>铃</i></span></p>
+           </div>
+           </div>
+           </transition>
+           <div class="del" v-if="show">删除</div>
+        </li>
+         <li>
+          <div class="main-context">
+           <div class="fl cell-img"><img src="http://tb1.bdstatic.com/tb/cms/ngmis/file_1453447545023.jpg" alt=""></div>
+           <div class="cell-text">
+              <div class="cell-name">上海前端交流群2 <span class="time fr">下午4:30</span></div>
+              <p>扣费标准 <span class="fr mute"><i>铃</i></span></p>
+           </div>
+           </div>
+        </li>
+      </ul>
+     
     </div>
-  </div>
 </template>
 
 <script>
-import create from '../utils/create';
-import Clickoutside from '../utils/clickoutside';
-import Touch from '../mixins/touch';
-const THRESHOLD = 0.15;
-export default create({
-  name: 'cell-swipe',
-  mixins: [Touch],
-  props: {
-    onClose: Function,
-    leftWidth: {
-      type: Number,
-      default: 0
-    },
-    rightWidth: {
-      type: Number,
-      default: 0
-    }
-  },
-  directives: {
-    Clickoutside
-  },
-  data() {
+export default {
+  data:function(){
     return {
-      offset: 0,
-      draging: false
-    };
-  },
-  computed: {
-    wrapperStyle() {
-      return {
-        transform: `translate3d(${this.offset}px, 0, 0)`,
-        transition: this.draging ? 'none' : '.6s cubic-bezier(0.18, 0.89, 0.32, 1)'
-      };
+     show:true
     }
-  },
-  methods: {
-    close() {
-      this.offset = 0;
-    },
-    resetSwipeStatus() {
-      this.swiping = false;
-      this.opened = true;
-    },
-    swipeMove(offset = 0) {
-      this.offset = offset;
-      offset && (this.swiping = true);
-      !offset && (this.opened = false);
-    },
-    swipeLeaveTransition(direction) {
-      const { offset, leftWidth, rightWidth } = this;
-      const threshold = this.opened ? (1 - THRESHOLD) : THRESHOLD;
-      // right
-      if (direction > 0 && -offset > rightWidth * threshold && rightWidth > 0) {
-        this.swipeMove(-rightWidth);
-        this.resetSwipeStatus();
-      // left
-      } else if (direction < 0 && offset > leftWidth * threshold && leftWidth > 0) {
-        this.swipeMove(leftWidth);
-        this.resetSwipeStatus();
-      } else {
-        this.swipeMove();
-      }
-    },
-    startDrag(event) {
-      this.draging = true;
-      this.touchStart(event);
-      if (this.opened) {
-        this.startX -= this.offset;
-      }
-    },
-    onDrag(event) {
-      this.touchMove(event);
-      const { deltaX } = this;
-      if ((deltaX < 0 && (-deltaX > this.rightWidth || !this.rightWidth)) ||
-        (deltaX > 0 && (deltaX > this.leftWidth || deltaX > 0 && !this.leftWidth))) {
-        return;
-      }
-      if (this.direction === 'horizontal') {
-        event.preventDefault();
-        this.swipeMove(deltaX);
-      };
-    },
-    endDrag() {
-      this.draging = false;
-      if (this.swiping) {
-        this.swipeLeaveTransition(this.offset > 0 ? -1 : 1);
-      };
-    },
-    onClick(position = 'outside') {
-      if (!this.offset) {
-        return;
-      }
-      if (this.onClose) {
-        this.onClose(position, this);
-      } else {
-        this.swipeMove(0);
-      }
-    }
+   
   }
-});
+}
 </script>
+
+
+<style scoped>
+.slide-fade-enter-active {
+  transition: all .3s ease;
+}
+.slide-fade-leave-active {
+  transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+}
+.slide-fade-enter, .slide-fade-leave-to
+/* .slide-fade-leave-active for below version 2.1.8 */ {
+  transform: translateX(10px);
+  opacity: 0;
+}
+</style>
