@@ -23,58 +23,69 @@ body {
     clear: both;
 }
 
-.cell-img {
-    width: 48px;
-    height: 48px;
-    margin-right: 6px;
-}
-
-.cell-img img {
-    width: 100%;
-    border-radius: 4px;
-}
-
 .wc-switch-cell {
-    margin-top: 56px;
-}
-
-.wc-switch-cell ul li {
-    padding: 8px 0px;
-    margin-bottom: 8px;
-    border-bottom: 1px solid #d2d2d2;
+    overflow: hidden;
     position: relative;
 }
 
-.wc-switch-cell ul li:last-child {
-    border: none !important;
-}
-
-.wc-switch-cell .cell-text {
-    text-align: left;
-}
-
-.cell-text .cell-name {
-    height: 25px;
-    line-height: 25px;
-    font-size: 18px;
-    color: #000;
-}
-
-.cell-text .cell-name .time {
-    font-size: 14px;
-    color: #b2b2b2;
-    height: 18px;
-    line-height: 18px;
-}
-
-.wc-switch-cell ul li .del {
+.wc-hairline:after {
+    position: relative;
+    content: '';
     position: absolute;
+    top: 0;
+    left: 0;
+    width: 200%;
+    height: 200%;
+    -webkit-transform: scale(.5);
+    transform: scale(.5);
+    -webkit-transform-origin: 0 0;
+    transform-origin: 0 0;
+    pointer-events: none;
+    box-sizing: border-box;
+    border: 0 solid #e5e5e5;
+    border-width: 1px 0;
+}
+
+.wc-cell {
+    width: 100%;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    padding: 10px 15px;
+    box-sizing: border-box;
+    line-height: 24px;
+    position: relative;
+    background-color: #fff;
+    color: #333;
+    font-size: 14px;
+    overflow: hidden;
+}
+
+.wc-cell_title,
+.wc-cell__value {
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    flex: 1;
+}
+
+.wc-cell__value {
+    overflow: hidden;
+    text-align: right;
+    vertical-align: middle;
+}
+
+.wc-switch-cell__right {
+    color: #FFFFFF;
+    font-size: 15px;
+    width: 65px;
+    height: 44px;
+    display: inline-block;
+    text-align: center;
+    line-height: 44px;
+    background-color: #F44;
     right: 0;
     top: 0;
-    height: 65px;
-    line-height: 65px;
-    width: 80px;
-    z-index: 99999;
-    background: red;
-    color: #fff;
+    height: 100%;
+    position: absolute;
+    transform: translate3d(100%, 0, 0);
 }

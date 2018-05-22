@@ -5,7 +5,7 @@
        <!-- <wc-chat></wc-chat> -->
        <wc-test></wc-test>
       </div>
-      <wc-footer></wc-footer>
+    
       
   </div>
 
